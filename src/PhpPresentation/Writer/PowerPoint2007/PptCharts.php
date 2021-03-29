@@ -2091,6 +2091,13 @@ class PptCharts extends AbstractDecoratorWriter
             $objWriter->writeAttribute('val', $markerSize);
             $objWriter->endElement();
         }
+		
+		// Marker Fill and Border
+		$objWriter->startElement('c:spPr');
+		$this->writeFill($objWriter, $oMarker->getFill());
+		$this->writeBorder($objWriter, $oMarker->getBorder(), '', true);
+		$objWriter->endElement();
+		
         $objWriter->endElement();
     }
 
