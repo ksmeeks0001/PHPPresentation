@@ -803,7 +803,7 @@ class PptCharts extends AbstractDecoratorWriter
 
         // c:grouping
         $objWriter->startElement('c:grouping');
-        $objWriter->writeAttribute('val', $subject->getBarGrouping());
+        $objWriter->writeAttribute('val', 'clustered');
         $objWriter->endElement();
 
         // Write series
