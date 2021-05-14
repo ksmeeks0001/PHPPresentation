@@ -323,15 +323,21 @@ class PptCharts extends AbstractDecoratorWriter
      * @param mixed $values
      * @param string $reference
      */
-    protected function writeMultipleValuesOrReference($objWriter, $isReference, $values, $reference)
+    protected function writeMultipleValuesOrReference($objWriter, $isReference, $values, $reference, $dataType=null)
     {
         // c:strLit / c:numLit
         // c:strRef / c:numRef
         $referenceType = ($isReference ? 'Ref' : 'Lit');
-        $dataType = 'str';
-        if (is_int($values[0]) || is_float($values[0])) {
-            $dataType = 'num';
-        }
+		
+		if($dataType === null){
+			if (is_int($values[0]) || is_float($values[0])) {
+				$dataType = 'num';
+			}
+			else{
+				$dataType = 'str';
+			}
+		}
+        
         $objWriter->startElement('c:' . $dataType . $referenceType);
 
         $numValues = count($values);
@@ -762,7 +768,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -961,7 +967,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -1164,7 +1170,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -1264,7 +1270,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -1508,7 +1514,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -1668,7 +1674,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             $objWriter->endElement();
@@ -1818,7 +1824,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:val
             $objWriter->startElement('c:val');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 			
 			// c:smooth
@@ -2003,7 +2009,7 @@ class PptCharts extends AbstractDecoratorWriter
             // c:yVal
             $objWriter->startElement('c:yVal');
             $coords = ($includeSheet ? 'Sheet1!$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$2:$' . \PHPExcel_Cell::stringFromColumnIndex($seriesIndex + 1) . '$' . (1 + count($axisYData)) : '');
-            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords);
+            $this->writeMultipleValuesOrReference($objWriter, $includeSheet, $axisYData, $coords, 'num');
             $objWriter->endElement();
 
             // c:smooth
