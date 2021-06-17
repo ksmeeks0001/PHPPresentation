@@ -2276,7 +2276,14 @@ class PptCharts extends AbstractDecoratorWriter
         // c:numFmt
         $objWriter->startElement('c:numFmt');
         $objWriter->writeAttribute('formatCode', $oAxis->getFormatCode());
-        $objWriter->writeAttribute('sourceLinked', '1');
+	// added 6-17-2021 to get format codes working KS
+	if($oAxis->getFormatCode()){
+            $sourceLinked = 0;
+        }
+        else{
+            $sourceLinked = 1;
+        }
+        $objWriter->writeAttribute('sourceLinked', $sourceLinked);
         $objWriter->endElement();
 
         // c:majorTickMark
